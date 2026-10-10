@@ -1,0 +1,44 @@
+// Settings page for the kanji watch face (runs on the phone)
+
+function settingsPage(invert) {
+	var html =
+		'<!DOCTYPE html><html><head><meta charset="utf-8">' +
+		'<meta name="viewport" content="width=device-width,initial-scale=1">' +
+		'<title>漢字時計</title><style>' +
+		'body{font-family:-apple-system,Helvetica,sans-serif;background:#1c1c1e;color:#fff;margin:0;padding:24px}' +
+		'h1{font-size:22px;font-weight:600;margin:0 0 24px}' +
+		'.row{display:flex;justify-content:space-between;align-items:center;background:#2c2c2e;border-radius:12px;padding:16px}' +
+		'.row span{font-size:17px}' +
+		'input{width:24px;height:24px}' +
+		'button{margin-top:24px;width:100%;padding:14px;font-size:17px;border:0;border-radius:12px;background:#ff4700;color:#fff}' +
+		'</style></head><body>' +
+		'<h1>漢字時計 Settings</h1>' +
+		'<label class="row"><span>White background, black kanji</span>' +
+		'<input type="checkbox" id="invert"' + (invert ? ' checked' : '') + '></label>' +
+		'<button id="save">Save</button>' +
+		'<script>document.getElementById("save").onclick=function(){' +
+		'var s={invert:document.getElementById("invert").checked};' +
+		'location.href="pebblejs://close#"+encodeURIComponent(JSON.stringify(s));};</script>' +
+		'</body></html>';
+	return 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
+}
+
+Pebble.addEventListener('showConfiguration', function () {
+	var invert = localStorage.getItem('invert') === '1';
+	Pebble.openURL(settingsPage(invert));
+});
+
+Pebble.addEventListener('webviewclosed', function (e) {
+	if (!e || !e.response) return;
+	var settings;
+	try {
+		settings = JSON.parse(decodeURIComponent(e.response));
+	} catch (err) {
+		return;
+	}
+	var invert = settings.invert ? 1 : 0;
+	localStorage.setItem('invert', String(invert));
+	Pebble.sendAppMessage({ INVERT: invert },
+		function () { console.log('Settings sent'); },
+		function () { console.log('Settings failed to send'); });
+});

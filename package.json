@@ -1,0 +1,32 @@
+{
+    "author": "jonavano",
+    "dependencies": {},
+    "keywords": [
+        "pebble-app"
+    ],
+    "name": "kanji-watch",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Kanji watch",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "INVERT"
+        ],
+        "projectType": "moddable",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "emery",
+            "gabbro"
+        ],
+        "uuid": "f6296578-37a8-4e4f-b1e7-66ea5b610f3e",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
