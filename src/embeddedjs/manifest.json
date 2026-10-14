@@ -12,6 +12,12 @@
 				"size": 48,
 				"monochrome": false,
 				"characters": "〇一二三四五六七八九十時分半"
+			},
+			{
+				"source": "./assets/KosugiMaru-Regular",
+				"size": 22,
+				"monochrome": false,
+				"characters": "0123456789〇一二三四五六七八九十月日曜火水木金土"
 			}
 		]
 	}
